@@ -1,15 +1,13 @@
 #!/usr/bin/env sh
 
-#
 # change these to match your system
-#
 OS="darwin"   # or linux
 ARCH="x64"
 VERSION="$1"
 PREFIX=~
 
 # if no version specified, bail
-[ -z "$VERSION" ] && echo "please specify a version (like v0.9.5)" && exit 1
+[ -z "$VERSION" ] && echo "please specify a version (like v0.9.5)" > /dev/stderr && exit 1
 
 # some vars
 NODE_NAME=node-"$VERSION"-"$OS"-"$ARCH"
@@ -18,26 +16,24 @@ NODE_NAME=node-"$VERSION"-"$OS"-"$ARCH"
 mkdir -p "$PREFIX"/lib
 cd "$PREFIX"/lib
 
-#
 # if we don't have the requested version in lib 
 # try to download it from nodejs.org
-#
-if [[ $NODE_NAME && ! -d $NODE_NAME ]]
+if [ ! -d "$NODE_NAME" ]
 then
   echo "version $VERSION not found, attempting to download..."
-  set -e
   curl -O http://nodejs.org/dist/"$VERSION"/"$NODE_NAME".tar.gz
   tar -xvzf "$NODE_NAME".tar.gz
   rm -rf "$NODE_NAME".tar.gz
 fi
 
-#
+# make sure it downloaded
+[ ! -d "$NODE_NAME" ] && echo "version $VERSION could not be downloaded, exiting" > /dev/stderr && exit 1
+cd "$NODE_NAME"
+
 # if we got this far, we have the right version
 # so we just symlink the contents of any directories 
 # inside lib/<node-version> out to their corresponding 
 # locations in $PREFIX/
-#
-cd $NODE_NAME
 ls | while read LISTING
 do
   if [ -d "$LISTING" ]
