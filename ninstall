@@ -41,7 +41,9 @@ do
     mkdir -p "$PREFIX"/"$LISTING"
     ls "$LISTING" | while read FILE
     do
-        ln -sF $(pwd)/"$LISTING"/"$FILE" "$PREFIX"/"$LISTING"
+        DEST="$PREFIX"/"$LISTING"/"$FILE"
+        rm -rf $DEST
+        ln -s $(pwd)/"$LISTING"/"$FILE" "$DEST"
     done
   fi
 done

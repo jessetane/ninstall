@@ -25,7 +25,8 @@ Run the script and pass the version of node you'd like to install. If it doesn't
 * bash
 
 ## Notes
-Be sure to set the variables at the top of the script to match your installation environment! For example, $PREFIX is set to your home directory by default.
+* Be sure to set the variables at the top of the script to match your installation environment! For example, $PREFIX is set to your home directory by default.
+* OS specific binaries only exist as far back as v0.8.6, so anything older than that likely won't work.
 
 ## License
 MIT
