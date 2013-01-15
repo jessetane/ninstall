@@ -16,7 +16,7 @@ Run the script and pass the version of node you'd like to install. If it doesn't
 `ninstall v0.9.5`
 
 ## Install
-`curl -O https://raw.github.com/jessetane/ninstall/master/ninstall`
+`curl -O https://raw.github.com/jessetane/ninstall/master/ninstall && chmod +x ninstall`
 
 ## Dependencies
 * curl

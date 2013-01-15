@@ -6,7 +6,7 @@
 OS="darwin"   # or linux
 ARCH="x64"
 VERSION="$1"
-PREFIX='$USER_HOME'
+PREFIX=~
 
 # if no version specified, bail
 [ -z "$VERSION" ] && echo "please specify a version (like v0.9.5)" && exit 1
