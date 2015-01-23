@@ -87,6 +87,7 @@ fi
 # attempt download
 file="$name-v$version-$platform-$arch.tar.gz"
 while ! tmpdir="$(mktemp -d "/tmp/n2-XXXXX")"; do :; done
+mkdir -p "$tmpdir"
 
 # if we don't have the required version in the cache, attempt to download it
 if [ ! -f "$cachedir/$file" ]; then
