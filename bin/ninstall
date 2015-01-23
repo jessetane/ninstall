@@ -3,21 +3,40 @@
 # ninstall
 #
 
-# chdir
-cd "$(dirname "$BASH_SOURCE")"
-
-# exit on errors and clean up
+# exit on errors
 set -e
+
+# clean up on exit
 trap '[ -n "$tmpdir" ] && rm -rf "$tmpdir"' EXIT
 
 # vars
 version="$1"
-joyent="$JOYENT"
-prefix="${PREFIX-"/usr/local"}"
-cachedir="$prefix/lib/ninstall"
+installdir="${PREFIX-"/usr/local"}"
+scriptdir="$(dirname "$BASH_SOURCE")"
+cachedir="$scriptdir/../lib/ninstall"
 
-# joyent or iojs?
-if [ -n "$joyent" ]; then
+# platform
+case "$(uname)" in
+  "Linux") platform="linux";;
+  "Darwin") platform="darwin";;
+  *)
+    echo "unsupported platform" >&2
+    exit 1
+  ;;
+esac
+
+# architecture
+case "$(uname -m)" in
+  "x86_64") arch="x64";;
+  "x86 ") arch="x86";;
+  *)
+    echo "unsupported architecture" >&2
+    exit 1
+  ;;
+esac
+
+# iojs vs node
+if [ -n "$version" ] && echo "$version" | grep -Eq "^0"; then
   url="https://nodejs.org/dist"
   name="node"
 else
@@ -25,91 +44,73 @@ else
   name="iojs"
 fi
 
-# if version was not spec'd pick latest
-if [ -z "$version" ]; then
-  selection="latest"
+# ensure working dirs
+while ! tmpdir="$(mktemp -d "/tmp/ninstall-XXX")"; do :; done
+mkdir -p "$cachedir" "$tmpdir"
+
+# if the version has two dots and three numbers 
+# it's exact, so we can assume an archive name
+if echo "$version" | grep -Eq '[0-9]+\.[0-9]+\.[0-9]+'; then
+  archive="$name-v$version-$platform-$arch.tar.gz"
 fi
 
-# match version exactly if two dots are present
-if echo "$version" | grep -Eq '[^.]+\.[^.]+\.[^.]+'; then
-  matcher="^$version$"
-else
-  matcher="^$version"
-fi
+# check cache
+if [ -z "$archive" ] || [ ! -f "$cachedir/$archive" ]; then
 
-# find best matching version
-while read line; do
-  line=($line)
-  if [ "$selection" = "latest" ]; then
-    selection="${line[0]}"
-    versionurl="${line[1]}"
-    break
-  elif echo "${line[0]}" | grep -Eq "$matcher"; then
-    selection="${line[0]}"
-    versionurl="${line[1]}"
-    break
+  # nope, let's ask the internets...
+  if [ -n "$version" ]; then
+    regex="$(echo "$version" | sed s/[.]/\\\\./g)"
+    if [ -n "$archive" ]; then
+      regex="^$regex$"
+    else
+      regex="^$regex"
+    fi
+    unset version
   fi
-done < <(curl -sL "$url/"\
+
+  while read line; do
+    line=($line)
+    if [ -z "$regex" ] || echo "${line[0]}" | grep -Eq "$regex"; then
+      version="${line[0]}"
+      urlpath="${line[1]}"
+      break
+    fi
+  done < <(curl -sL "$url/"\
          | grep -E '<a href="v'\
          | sed 's/.*href="\(.*\)">[^v]*v\([.0-9]*\).*/\2 \1/'\
          | sort -nr -t. -k1,1 -k2,2 -k3,3)
 
-# make sure we found a valid version
-if [ -z "$selection" ]; then
-  echo "no matching version found" >&2
-  exit 1
-else
-  version="$selection"
-fi
-
-# platform
-case "$(uname)" in
-  "Darwin") platform="darwin";;
-  "Linux") platform="linux";;
-esac
-
-if [ -z "$platform" ]; then
-  echo "unsupported platform" >&2
-  exit 1
-fi
-
-# architecture
-case "$(uname -m)" in
-  "x86_64") arch="x64";;
-  "x86 ") arch="x86";;
-esac
-
-if [ -z "$arch" ]; then
-  echo "unsupported architecture" >&2
-  exit 1
-fi
-
-# attempt download
-file="$name-v$version-$platform-$arch.tar.gz"
-while ! tmpdir="$(mktemp -d "/tmp/n2-XXXXX")"; do :; done
-mkdir -p "$tmpdir"
-
-# if we don't have the required version in the cache, attempt to download it
-if [ ! -f "$cachedir/$file" ]; then
-  download="$url/$versionurl/$file"
-  if ! curl -fL# "$download" > "$tmpdir/$file"; then
-    echo "failed to download $download" >&2
+  if [ -z "$version" ]; then
+    echo "no matching version found" >&2
     exit 1
-  else
-    mkdir -p "$cachedir"
-    mv "$tmpdir/$file" "$cachedir/$file"
+  fi
+
+  archive="$name-v$version-$platform-$arch.tar.gz"
+  download="$url/$urlpath/$archive"
+
+  # check cache again
+  if [ ! -f "$cachedir/$archive" ]; then
+
+    # nope, download it
+    if ! curl -fL# "$download" > "$tmpdir/$archive"; then
+      echo "failed to download $download" >&2
+      exit 1
+    fi
+
+    # cache it
+    mv "$tmpdir/$archive" "$cachedir/$archive"
   fi
 fi
 
 # unarchive
-tar xf "$cachedir/$file" -C "$tmpdir" --strip-components 1 2> /dev/null
+tar xf "$cachedir/$archive" -C "$tmpdir" --strip-components 1 2> /dev/null
 
-# not bullet-proof, but delete some things we know might not be overidden
-rm -rf "$prefix"/include/node
-rm "$prefix"/bin/iojs &> /dev/null || :;
+# remove anything that might not get overidden
+rm -rf "$installdir"/include/node
+rm "$installdir"/bin/{iojs,node-waf} &> /dev/null || :;
 
-# delete any loose files from the download
+# delete license, changelog etc
 rm "$tmpdir/"* &> /dev/null || :;
 
 # install
-rsync -a "$tmpdir/"* "$prefix"
+rsync -a "$tmpdir/"* "$installdir"
