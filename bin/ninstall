@@ -102,7 +102,7 @@ if [ ! -f "$cachedir/$file" ]; then
 fi
 
 # unarchive
-tar xf "$cachedir/$file" - -C "$tmpdir" --strip-components 1 2> /dev/null
+tar xf "$cachedir/$file" -C "$tmpdir" --strip-components 1 2> /dev/null
 
 # not bullet-proof, but delete some things we know might not be overidden
 rm -rf "$prefix"/include/node
