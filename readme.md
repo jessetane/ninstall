@@ -1,18 +1,23 @@
 # ninstall
-A bash script to install node & npm on unix-like systems. Binaries can be fetched from [iojs.org](https://iojs.org/dist) or [nodejs.org](http://nodejs.org/dist).
+A bash script to install and switch between versions node on unix-like systems. Versions >= 1.x are fetched from [iojs.org](https://iojs.org/dist), < from [nodejs.org](http://nodejs.org/dist).
 
 ## Why
-Cos [io.js](https://iojs.org) happened, but also because most of the popular solutions either depend on node itself, or are just more complicated than I have the need for.
+Cos [io.js](https://iojs.org) happened. Also most of the other popular solutions either depend on node itself, or are just more complicated than I have the need for.
 
 ## How
-Install the latest iojs:
+Install the latest version of node:
 ```bash
 $ ninstall
 ```
 
-Install a specific version of iojs:
+Install a specific version:
 ```bash
-$ ninstall 1.0.2
+$ ninstall 1.0.3
+```
+
+Install the latest patch version:
+```bash
+$ ninstall 0.10
 ```
 
 Install to somewhere other than /usr/local
@@ -20,21 +25,17 @@ Install to somewhere other than /usr/local
 $ PREFIX=/opt ninstall
 ```
 
-Install the latest Joyent node:
+## Download
 ```bash
-$ JOYENT=true ninstall
+$ curl -L# https://github.com/jessetane/ninstall/archive/2.0.0.tar.gz \
+  | tar x --strip-components 2 -C /usr/local/bin
 ```
 
-Install a specific version of Joyent node:
-```bash
-$ JOYENT=true ninstall 0.10
-```
-
-## Install
-Dependencies:
+## Dependencies
 * [bash](http://linux.die.net/man/1/bash)
 * [cd](http://linux.die.net/man/1/cd)
 * [rm](http://linux.die.net/man/1/rm)
+* [mkdir](http://linux.die.net/man/1/mkdir)
 * [curl](http://linux.die.net/man/1/curl)
 * [grep](http://linux.die.net/man/1/grep)
 * [sed](http://linux.die.net/man/1/sed)
@@ -43,15 +44,14 @@ Dependencies:
 * [tar](http://linux.die.net/man/1/tar)
 * [rsync](http://linux.die.net/man/1/rsync)
 
-```bash
-$ curl -fLO# https://github.com/jessetane/ninstall/archive/1.0.0.tar.gz
-$ tar xf 1.0.0.tar.gz
-$ cd ninstall-1.0.0
-$ cp bin/ninstall /usr/local/bin
-```
+## Inspiration
+* [`n`](https://github.com/tj/n)
 
 ## Releases
 The latest stable release is published as a tarball on github.
+* [2.x](https://github.com/jessetane/ninstall/archive/2.0.0.tar.gz)
+ * Remove the need to manually specify iojs vs node
+ * Check cache before doing internets if possible
 * [1.x](https://github.com/jessetane/ninstall/archive/1.0.0.tar.gz)
  * First pass.
 
