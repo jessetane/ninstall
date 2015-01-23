@@ -111,4 +111,4 @@ rm "$prefix"/bin/iojs &> /dev/null || :;
 rm "$tmpdir/"* &> /dev/null || :;
 
 # install
-cp -fR "$tmpdir/"* "$prefix"
+rsync -a "$tmpdir/"* "$prefix"

@@ -34,7 +34,6 @@ $ JOYENT=true ninstall 0.10
 Dependencies:
 * [bash](http://linux.die.net/man/1/bash)
 * [cd](http://linux.die.net/man/1/cd)
-* [cp](http://linux.die.net/man/1/cp)
 * [rm](http://linux.die.net/man/1/rm)
 * [curl](http://linux.die.net/man/1/curl)
 * [grep](http://linux.die.net/man/1/grep)
@@ -42,6 +41,7 @@ Dependencies:
 * [sort](http://linux.die.net/man/1/sort)
 * [mktemp](http://linux.die.net/man/1/mktemp)
 * [tar](http://linux.die.net/man/1/tar)
+* [rsync](http://linux.die.net/man/1/rsync)
 
 ```bash
 $ curl -fLO# https://github.com/jessetane/ninstall/archive/1.0.0.tar.gz
