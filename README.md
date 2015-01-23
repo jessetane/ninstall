@@ -1,32 +1,64 @@
-```
-     _         _       _ _ 
- ___|_|___ ___| |_ ___| | |
-|   | |   |_ -|  _| .'| | |
-|_|_|_|_|_|___|_| |__,|_|_|
-
-```
-## What
-Install and switch between versions of [node](https://github.com/joyent/node).
+# ninstall
+A bash script to install node & npm on unix-like systems. Binaries can be fetched from [iojs.org](https://iojs.org/dist) or [nodejs.org](http://nodejs.org/dist).
 
 ## Why
-[nave](https://github.com/isaacs/nave), [nvm](https://github.com/creationix/nvm), etc are really powerful, but they're also kind of complicated. This is a very basic shell script that just gets & installs binaries.
+Cos [io.js](https://iojs.org) happened, but also because most of the popular solutions either depend on node itself, or are just more complicated than I have the need for.
 
 ## How
-Run the script and pass the version of node you'd like to install. If it doesn't already exist in $PREFIX/lib, the script will attempt to download the binaries from [nodejs.org](http://nodejs.org). Once $PREFIX/lib contains an acceptable version, the script symlinks the necessary components out to $PREFIX/. That's it. If you have $PREFIX/bin in your PATH, running `node -v` should reflect the changes immediately.
+Install the latest iojs:
+```bash
+$ ninstall
+```
 
-## Usage
-`ninstall v0.9.5`
+Install a specific version of iojs:
+```bash
+$ ninstall 1.0.2
+```
+
+Install to somewhere other than /usr/local
+```bash
+$ PREFIX=/opt ninstall
+```
+
+Install the latest Joyent node:
+```bash
+$ JOYENT=true ninstall
+```
+
+Install a specific version of Joyent node:
+```bash
+$ JOYENT=true ninstall 0.10
+```
 
 ## Install
-`curl -O https://raw.github.com/jessetane/ninstall/master/ninstall && chmod +x ninstall`
+Dependencies:
+* [bash](http://linux.die.net/man/1/bash)
+* [cd](http://linux.die.net/man/1/cd)
+* [cp](http://linux.die.net/man/1/cp)
+* [rm](http://linux.die.net/man/1/rm)
+* [curl](http://linux.die.net/man/1/curl)
+* [grep](http://linux.die.net/man/1/grep)
+* [sed](http://linux.die.net/man/1/sed)
+* [sort](http://linux.die.net/man/1/sort)
+* [mktemp](http://linux.die.net/man/1/mktemp)
+* [tar](http://linux.die.net/man/1/tar)
 
-## Dependencies
-* curl
-* bash
+```bash
+$ curl -fLO# https://github.com/jessetane/ninstall/archive/1.0.0.tar.gz
+$ tar xf ninstall-1.0.0.tar.gz
+$ cd ninstall-1.0.0
+$ cp bin/ninstall /usr/local/bin
+```
 
-## Notes
-* Be sure to set the variables at the top of the script to match your installation environment! For example, $PREFIX is set to your home directory by default.
-* OS specific binaries only exist as far back as v0.8.6, so anything older than that likely won't work.
+## Releases
+The latest stable release is published as a tarball on github.
+* [1.x](https://github.com/jessetane/ninstall/archive/1.0.0.tar.gz)
+ * First pass.
 
 ## License
-MIT
+Copyright © 2014 Jesse Tane <jesse.tane@gmail.com>
+
+This work is free. You can redistribute it and/or modify it under the
+terms of the [WTFPL](http://www.wtfpl.net/txt/copying).
+
+No Warranty. The Software is provided "as is" without warranty of any kind, either express or implied, including without limitation any implied warranties of condition, uninterrupted use, merchantability, fitness for a particular purpose, or non-infringement.
