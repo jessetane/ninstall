@@ -45,7 +45,7 @@ Dependencies:
 
 ```bash
 $ curl -fLO# https://github.com/jessetane/ninstall/archive/1.0.0.tar.gz
-$ tar xf ninstall-1.0.0.tar.gz
+$ tar xf 1.0.0.tar.gz
 $ cd ninstall-1.0.0
 $ cp bin/ninstall /usr/local/bin
 ```
