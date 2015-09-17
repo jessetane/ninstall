@@ -27,7 +27,7 @@ $ PREFIX=/opt ninstall
 
 ## Download
 ```bash
-$ curl -L# https://github.com/jessetane/ninstall/archive/2.0.0.tar.gz \
+$ curl -L# https://github.com/jessetane/ninstall/archive/3.0.0.tar.gz \
   | tar x --strip-components 2 -C /usr/local/bin
 ```
 
@@ -49,6 +49,8 @@ $ curl -L# https://github.com/jessetane/ninstall/archive/2.0.0.tar.gz \
 
 ## Releases
 The latest stable release is published as a tarball on github.
+* [3.x](https://github.com/jessetane/ninstall/archive/3.0.0.tar.gz)
+ * node and iojs merged
 * [2.x](https://github.com/jessetane/ninstall/archive/2.0.0.tar.gz)
  * Remove the need to manually specify iojs vs node
  * Check cache before doing internets if possible
