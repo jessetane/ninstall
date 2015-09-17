@@ -36,12 +36,12 @@ case "$(uname -m)" in
 esac
 
 # iojs vs node
-if [ -n "$version" ] && echo "$version" | grep -Eq "^0"; then
-  url="https://nodejs.org/dist"
-  name="node"
-else
+if [ -n "$version" ] && echo "$version" | grep -Eq "^(1|2|3)"; then
   url="https://iojs.org/dist"
   name="iojs"
+else
+  url="https://nodejs.org/dist"
+  name="node"
 fi
 
 # ensure working dirs
