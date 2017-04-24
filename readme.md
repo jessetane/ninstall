@@ -45,6 +45,9 @@ $ curl -L# https://github.com/jessetane/ninstall/archive/3.0.0.tar.gz | tar xz -
 
 ## Releases
 The latest stable release is published as a tarball on github.
+* [4.0](https://github.com/jessetane/ninstall/archive/4.0.0.tar.gz)
+ * Add ARM support
+ * Change license to MIT
 * [3.x](https://github.com/jessetane/ninstall/archive/3.0.0.tar.gz)
  * node and iojs merged
 * [2.x](https://github.com/jessetane/ninstall/archive/2.0.0.tar.gz)
