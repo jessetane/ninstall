@@ -28,7 +28,10 @@ esac
 # architecture
 case "$(uname -m)" in
   "x86_64") arch="x64";;
-  "x86 ") arch="x86";;
+  "x86") arch="x86";;
+  "armv6l") arch="armv6l";;
+  "armv7l") arch="armv7l";;
+  "arm64") arch="arm64";;
   *)
     echo "unsupported architecture" >&2
     exit 1
