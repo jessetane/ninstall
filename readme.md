@@ -27,15 +27,11 @@ $ PREFIX=/opt ninstall
 
 ## Download
 ```bash
-$ curl -L# https://github.com/jessetane/ninstall/archive/3.0.0.tar.gz \
-  | tar x --strip-components 2 -C /usr/local/bin
+$ curl -L# https://github.com/jessetane/ninstall/archive/3.0.0.tar.gz | tar xz --strip-components 2 -C /usr/local/bin
 ```
 
 ## Dependencies
 * [bash](http://linux.die.net/man/1/bash)
-* [cd](http://linux.die.net/man/1/cd)
-* [rm](http://linux.die.net/man/1/rm)
-* [mkdir](http://linux.die.net/man/1/mkdir)
 * [curl](http://linux.die.net/man/1/curl)
 * [grep](http://linux.die.net/man/1/grep)
 * [sed](http://linux.die.net/man/1/sed)
