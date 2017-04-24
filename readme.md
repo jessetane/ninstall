@@ -54,9 +54,4 @@ The latest stable release is published as a tarball on github.
  * First pass.
 
 ## License
-Copyright © 2014 Jesse Tane <jesse.tane@gmail.com>
-
-This work is free. You can redistribute it and/or modify it under the
-terms of the [WTFPL](http://www.wtfpl.net/txt/copying).
-
-No Warranty. The Software is provided "as is" without warranty of any kind, either express or implied, including without limitation any implied warranties of condition, uninterrupted use, merchantability, fitness for a particular purpose, or non-infringement.
+MIT
