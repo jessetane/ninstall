@@ -1,0 +1,8 @@
+{
+  "name": "ninstall",
+  "version": "4.0.0",
+  "description": "A bash script to install and switch between versions node on unix-like systems. Versions >= 1.x are fetched from [iojs.org](https://iojs.org/dist), < from [nodejs.org](http://nodejs.org/dist).",
+  "repository": "https://github.com/jessetane/ninstall.git",
+  "author": "jesse.tane@gmail.com",
+  "license": "MIT"
+}
