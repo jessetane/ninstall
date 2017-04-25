@@ -27,7 +27,7 @@ $ PREFIX=/opt ninstall
 
 ## Download
 ```bash
-$ curl -L# https://github.com/jessetane/ninstall/archive/3.0.0.tar.gz | tar xz --strip-components 2 -C /usr/local/bin
+$ curl -L# https://github.com/jessetane/ninstall/archive/4.0.0.tar.gz | tar xz --strip-components 2 -C /usr/local/bin
 ```
 
 ## Dependencies
