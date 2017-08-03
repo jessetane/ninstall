@@ -106,9 +106,9 @@ if [ -z "$archive" ] || [ ! -f "$cachedir/$archive" ]; then
 fi
 
 # unarchive
-tar xf "$cachedir/$archive" -C "$tmpdir" --strip-components 1 2> /dev/null
+tar fox "$cachedir/$archive" -C "$tmpdir" --strip-components 1 2> /dev/null
 
-# remove anything that might not get overidden
+# remove some things that might not get overidden
 rm -rf "$installdir"/include/node
 rm "$installdir"/bin/{iojs,node-waf} &> /dev/null || :;
 
@@ -116,4 +116,4 @@ rm "$installdir"/bin/{iojs,node-waf} &> /dev/null || :;
 rm "$tmpdir/"* &> /dev/null || :;
 
 # install
-rsync -a "$tmpdir/"* "$installdir"
+rsync -rlK "$tmpdir/"* "$installdir/"
