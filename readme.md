@@ -27,7 +27,7 @@ $ PREFIX=/opt ninstall
 
 ## Download
 ```bash
-$ curl -L# https://github.com/jessetane/ninstall/archive/4.0.0.tar.gz | tar xz --strip-components 2 -C /usr/local/bin
+$ curl -L# https://github.com/jessetane/ninstall/archive/5.0.0.tar.gz | tar xz --strip-components 2 -C /usr/local/bin
 ```
 
 ## Dependencies
@@ -45,6 +45,8 @@ $ curl -L# https://github.com/jessetane/ninstall/archive/4.0.0.tar.gz | tar xz -
 
 ## Releases
 The latest stable release is published as a tarball on github.
+* [5.0](https://github.com/jessetane/ninstall/archive/5.0.0.tar.gz)
+ * Use destination permissions
 * [4.0](https://github.com/jessetane/ninstall/archive/4.0.0.tar.gz)
  * Add ARM support
  * Change license to MIT
